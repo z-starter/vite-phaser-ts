@@ -1,51 +1,128 @@
-# Phaser Vite TypeScript Template
+# Phaser 3 + TypeScript + Vite Starter Template
 
-This is a Phaser 3 project template that uses Vite for bundling. It supports hot-reloading for quick development workflow, includes TypeScript support and scripts to generate production-ready builds.
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Phaser](https://img.shields.io/badge/Phaser-3.90.0-red?style=for-the-badge&logo=phaser&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-## Requirements
+A modern, production-ready starter template for creating games and interactive experiences with **Phaser 3**, leveraging the speed of **Vite** and the safety of **TypeScript**. This template provides a streamlined development environment with hot-reloading, optimized builds, and a clear project structure.
 
-[Node.js](https://nodejs.org) is required to install dependencies and run scripts.
 
-## Template Project Structure
+## ✨ Features
 
-We have provided a default project structure to get you started. This is as follows:
+*   **Phaser 3.90.0**: The latest version of the fast, free, and fun open-source HTML5 game framework.
+*   **TypeScript**: Full type safety for better developer experience, maintainability, and fewer runtime errors.
+*   **Vite**: Next-generation frontend tooling for lightning-fast server start and hot module replacement (HMR).
+*   **Optimized Builds**: Pre-configured to generate minified, production-ready bundles.
+*   **Clean Project Structure**: A logical and scalable folder structure to organize your scenes, assets, and code.
+*   **Code Quality Tools**: Integrated with Prettier for consistent code formatting.
+*   **Asset Handling Examples**: Clear examples for importing both static and bundled images and assets.
 
-- `index.html` - A basic HTML page to contain the game.
-- `src` - Contains the game source code.
-- `src/main.ts` - The main **entry** point. This contains the game configuration and starts the game.
-- `src/vite-env.d.ts` - Global TypeScript declarations, provide types information.
-- `src/scenes/` - The Phaser Scenes are in this folder.
-- `public/assets` - Contains the static assets used by the game.
+## 🚀 Getting Started
 
-## Handling Assets
+### Prerequisites
+- Node.js 18+
+- Yarn package manager
 
-Vite supports loading assets via TypeScript module `import` statements.
+### Installation
 
-This template provides support for both embedding assets and also loading them from a static folder. To embed an asset, you can import it at the top of the TypeScript file you are using it in:
+1.  **Create a new project** from this template using `degit` or by cloning the repository.
+    ```bash
+    git clone https://github.com/z-starter/vite-phaser-ts.git my-phaser-game
+    cd my-phaser-game
+    ```
 
-```js
-import logoImg from './assets/logo.png'
+2.  **Install the dependencies.** This template uses Yarn by default (as seen in the lockfile).
+    ```bash
+    yarn install
+    ```
+
+### Usage
+
+**Start the development server:**
+```bash
+yarn dev
+```
+Open your browser to the local address shown in the terminal (typically `http://localhost:5173`). The game will hot-reload as you edit the source files.
+
+**Create a production build:**
+```bash
+yarn build
+```
+This will generate optimized files in the `/dist` directory, ready for deployment.
+
+**Preview the production build locally:**
+```bash
+yarn preview
 ```
 
-To load static files such as audio files, videos, etc place them into the `public/assets` folder. Then you can use this path in the Loader calls within Phaser:
+## 📁 Project Structure
+```
+vite-phaser-ts/
+├── public/ # Static assets served at root
+│ └── assets/ # Static assets (audio, videos, large images)
+├── src/
+│ ├── scenes/ # Phaser Scene classes
+│ │ └── Game.ts # Example main game scene
+│ ├── main.ts # Main entry point & Phaser game config
+│ └── vite-env.d.ts # Vite type declarations
+├── index.html # Main HTML page
+├── vite.config.ts # Vite configuration
+├── tsconfig.json # TypeScript configuration
+├── package.json
+└── (various config files for yarn, prettier, etc.)
+```
 
-```js
-preload ()
-{
-    //  This is an example of an imported bundled image.
-    //  Remember to import it at the top of this file
+## 🖼️ Handling Assets
+
+This template supports two primary methods for handling assets, both crucial for optimal performance:
+
+1.  **Bundled Assets (Recommended for most images):**
+    Import assets directly in your TypeScript/SCSS files. Vite will process them (e.g., apply hashing, optional compression) and include them in the bundle.
+    ```typescript
+    // Import at the top of your scene file
+    import logoImg from './assets/logo.png';
+    // ... later in preload()
     this.load.image('logo', logoImg);
+    ```
 
-    //  This is an example of loading a static image
-    //  from the public/assets folder:
-    this.load.image('background', 'assets/bg.png');
-}
-```
+2.  **Static Assets (For large files like audio/video):**
+    Place files in the `public/assets/` directory. They are copied directly to the build output and can be referenced by a public path.
+    ```typescript
+    // In preload(), use the public path
+    this.load.image('background', '/assets/bg.png');
+    this.load.audio('theme', '/assets/music/theme.mp3');
+    ```
 
-When you build the project, all static assets are automatically copied to the `dist/assets` folder.
+## 🧑‍💻 Development
 
-## Deploying to Production
+The core game logic starts in `src/main.ts`, where the Phaser.Game instance is configured. The template includes a sample `Game` scene in `src/scenes/Game.ts` to demonstrate scene structure, asset loading, and basic interaction.
 
-After you build the project, your code will be built into a single bundle and saved to the `dist` folder, along with any other assets your project imported, or stored in the public assets folder.
+Key files to edit:
+*   `src/main.ts`: Modify game width, height, physics, and default scene.
+*   `src/scenes/Game.ts`: Your main game logic. Create additional scenes in the `src/scenes/` folder.
+*   `index.html`: Update page title, meta tags, or add global styles/scripts.
 
-In order to deploy your game, you will need to upload *all* of the contents of the `dist` folder to a public facing web server.
+## 📦 Building for Production
+
+Running `yarn build` instructs Vite to:
+*   Bundle and minify your TypeScript/SCSS code.
+*   Optimize imported assets.
+*   Copy static assets from the `public` folder.
+*   Output the final, deployable site to the `dist` directory.
+
+**To deploy your game**, upload the entire contents of the `dist` folder to any static web hosting service (e.g., GitHub Pages, Netlify, Vercel, or a traditional web server).
+
+## 📄 License
+
+This project is licensed under the **MIT License**. See the `LICENSE` file in the repository for the full text.
+
+## 🙏 Acknowledgments
+
+*   [Phaser](https://phaser.io/) for the amazing game framework.
+*   [Vite](https://vitejs.dev/) for the superb developer experience.
+*   All contributors and the open-source community.
+
+---
+
+*Happy Game Dev! 🎮*
