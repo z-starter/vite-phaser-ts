@@ -8,13 +8,13 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@o.z/vite-plugin-swc": "^0.7.0",
-    "sass": "^1.98.0",
-    "typescript": "^6.0.2",
-    "vite": "^8.0.2"
+    "@o.z/vite-plugin-swc": "^0.19.0",
+    "sass": "^1.103.1",
+    "typescript": "~6.0.2",
+    "vite": "^8.2.2"
   },
   "dependencies": {
-    "phaser": "^3.90.0"
+    "phaser": "^4.2.1"
   },
-  "packageManager": "yarn@4.13.0"
+  "packageManager": "yarn@4.18.0"
 }
